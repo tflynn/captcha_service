@@ -92,7 +92,8 @@ Place the file in a suitable location. For this discussion, place in
 
 In './config/application_configuration.yml' add the line:
 
-configatron.captcha_service.configuration_filename = './config/captcha_service.yml'
+captcha_service:
+  :configuration_filename: './config/captcha_service.yml'
 
 If you need overrides by environment, then place these files in the same location,
 using the standard naming conventions. E.g.
@@ -167,6 +168,4 @@ captcha_service:
   :providers:
     :captchator:
 
-captcha_service API
-===================
 
