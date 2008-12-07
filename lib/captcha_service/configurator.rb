@@ -10,14 +10,21 @@ module CaptchaService
     class << self
 
       def get_provider(provider_designator = nil)
-        configuration = get_configuration
-        provider = provider_designator ? provider_designator.to_sym : configuration[:default_provider]
-        provider_configuration = configuration[:providers][provider]
+        provider, provider_configuration = get_provider_configuration(provider_designator)
         if provider == :captchator
           return CaptchaService::CapchatorProvider.new
+        elsif provider == :mollom
+          return CaptchaService::MollomProvider.new
         else
           return nil
         end
+      end
+
+      def get_provider_configuration(provider_designator = nil)
+        configuration = get_configuration
+        provider = provider_designator ? provider_designator.to_sym : configuration[:default_provider]
+        provider_configuration = configuration[:providers][provider]
+        return provider, provider_configuration
       end
       
       def is_Mack?

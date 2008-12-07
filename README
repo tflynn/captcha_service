@@ -3,7 +3,7 @@ README for captcha_service
 
 Created by: Tracy Flynn
 Date: 2008/12/07
-Version: 0.2
+Version: 0.3
 
 captcha_service description
 ===========================
@@ -18,8 +18,11 @@ Currenty Mack, Rails and other application stacks are supported.
 
 The following captcha providers are supported:
 
-Captchator - http://captchator.com/
+Captchator - http://captchator.com/ - (Free - limited volume)
 
+Mollom - http://mollom.com (Commercial)
+  Requires mollom gem Version 0.1.4
+  Requires Private/Public keys from Mollom
 
 captcha_service API
 ===================
@@ -56,12 +59,19 @@ Create a YAML file 'captcha_service.yml' with the following format:
 
 ----------------------------------------------
 captcha_service:
-  :default_provider: :captchator
+  :default_provider: :mollom
   :providers:
     :captchator:
+    :mollom:
+      :private_key: 'f7c63d37d6a9ebdb62aca64688b38901'
+      :public_key: '2c3f421dd5b32c6fe217dca701bc8972'
 -----------------------------------------------
 
-(You can actually name it whatever you like.)
+You can actually name it whatever you like.
+
+Note: The Mollon keys are not valid. See description at top of README
+
+
 
 For Configatron-based Systems - e.g. Mack
 ------------------------------------------
@@ -167,5 +177,19 @@ captcha_service:
   :default_provider: :captchator
   :providers:
     :captchator:
+
+Mollom
+------
+
+http://mollom.com
+
+Configuration
+
+captcha_service:
+  :default_provider: :mollom
+  :providers:
+    :mollom:
+      :private_key: 'f7c63d37d6a9ebdb62aca64688b38901'
+      :public_key: '2c3f421dd5b32c6fe217dca701bc8972'
 
 

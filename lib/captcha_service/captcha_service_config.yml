@@ -1,4 +1,7 @@
 captcha_service:
-  :default_provider: :captchator
+  :default_provider: :mollom
   :providers:
     :captchator:
+    :mollom:
+      :private_key: 'f7c63d37d6a9ebdb62aca64688b38901'
+      :public_key: '2c3f421dd5b32c6fe217dca701bc8972'
