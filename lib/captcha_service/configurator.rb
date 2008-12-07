@@ -71,6 +71,9 @@ module CaptchaService
           if is_Rails?
             app_env = RAILS_ENV.to_s.downcase
           end
+          unless app_env
+            app_env = ENV['CAPTCHA_SERVICE_ENVIRONMENT']
+          end
           env_configuration_filename = nil
           if app_env
             dirname = File.dirname(base_configuration_filename)

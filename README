@@ -1,1 +1,172 @@
 README for captcha_service
+===========================
+
+Created by: Tracy Flynn
+Date: 2008/12/07
+Version: 0.2
+
+captcha_service description
+===========================
+
+captcha_service is supplied as a Ruby Gem.
+
+captcha_service provides a lightweight wrapping for various open and for-pay
+on-line captcha services. Currently, a simple API is provided. Different captcha
+services are selected at configuration time.
+
+Currenty Mack, Rails and other application stacks are supported.
+
+The following captcha providers are supported:
+
+Captchator - http://captchator.com/
+
+
+captcha_service API
+===================
+
+There are three captcha_service API calls
+
+captcha_service API: Get a provider instance
+--------------------------------------------
+
+provider = CaptchaService::Configurator.get_provider
+
+captcha_service API: Get an image tag and a verification key
+------------------------------------------------------------
+
+captcha_key, captcha_image_tag = provider.image_tag
+
+captcha_service API: Validate a captcha answer
+----------------------------------------------
+
+answer = provider.verify_answer(captcha_key,captcha_answer)
+
+answer is a boolean - true/false
+
+Sample Applications
+===================
+
+Sample applications showing how to implement the captcha_service APIs
+are provided in ./spec/test_apps.
+
+Configuration
+=============
+
+Create a YAML file 'captcha_service.yml' with the following format:
+
+----------------------------------------------
+captcha_service:
+  :default_provider: :captchator
+  :providers:
+    :captchator:
+-----------------------------------------------
+
+(You can actually name it whatever you like.)
+
+For Configatron-based Systems - e.g. Mack
+------------------------------------------
+
+Place the file in a suitable location. For this discussion, place in
+'./config/configurator/'.
+
+In './config/configurator/default.rb' add the line:
+
+configatron.captcha_service.configuration_filename = './config/configatron/captcha_service.yml'
+
+If you need overrides by environment, then place these files in the same location,
+using the standard naming conventions. E.g.
+
+./config/configatron/captcha_service_production.yml
+./config/configatron/captcha_service_development.yml
+./config/configatron/captcha_service_test.yml
+
+captcha_service will find these files and use their values to override the defaults.
+
+For ApplicationConfiguration-based systems
+------------------------------------------
+
+(This section uses RAILS as an example)
+
+Place the file in a suitable location. For this discussion, place in
+'./config'.
+
+In './config/application_configuration.yml' add the line:
+
+configatron.captcha_service.configuration_filename = './config/captcha_service.yml'
+
+If you need overrides by environment, then place these files in the same location,
+using the standard naming conventions. E.g.
+
+./config/captcha_service_production.yml
+./config/captcha_service_development.yml
+./config/captcha_service_test.yml
+
+captcha_service will find these files and use their values to override the defaults.
+
+For other systems
+-----------------
+
+Set the environment variable:
+
+CAPTCHA_SERVICE_CONFIGURATION_FILE
+
+to point to the fully qualified nane of the captcha_service configuration file.
+
+If you further specify the environment variable:
+
+CAPTCHA_SERVICE_ENVIRONMENT
+
+this will be used to find an additional environment-specific file in the same location
+as the default captcha_service configuration file.
+
+The file name is obtained by appending the environment name to the default configuration
+file name with an underscore '-' as a separator.
+
+viz: 
+
+CAPTCHA_SERVICE_CONFIGURATION_FILE="/usr/apps/configuration/captcha_service.yml"
+CAPTCHA_SERVICE_ENVIRONMENT='serious_production'
+
+The environment-specific file will be named:
+
+"usr/apps/configuration/captcha_service_serious_production_.yml"
+
+Mack
+-----
+
+captcha_service knows about Mack environments and logging. It will log error messages
+to 'Mack.logger'.
+
+
+RAILS
+-----
+
+captcha_service knows about RAILS environments and logging. It will log error messages
+to 'RAILS_DEFAULT_LOGGER'.
+
+Other Environments
+------------------
+
+Currently, there is no support for 3rd party logging.
+
+Captcha Service Providers
+=========================
+
+The following Captcha Services providers are currently supported. Sample configurations
+are also supplied:
+
+Captchator
+----------
+
+http://captchator.com/
+
+Configuration
+
+captcha_service:
+  :default_provider: :captchator
+  :providers:
+    :captchator:
+
+captcha_service API
+===================
+
