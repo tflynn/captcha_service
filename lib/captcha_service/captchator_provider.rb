@@ -13,19 +13,26 @@ module CaptchaService
     end
 
     def verify_answer(key,answer)
-      verification_url = "http://captchator.com/captcha/check_answer/#{key}/#{answer}"
-      #puts "verification_url #{verification_url}"
-      uri = URI.parse(verification_url)
-      answer = nil
-      Net::HTTP.start(uri.host) do |http_request|
-        response = http_request.get(uri.path)
-        #puts "code: #{response.code}"
-        #puts "message: #{response.message}"
-        #puts "body >>#{response.body}<<"
-        answer = response.body.strip.chomp
+      begin
+        verification_url = "http://captchator.com/captcha/check_answer/#{key}/#{answer}"
+        #puts "verification_url #{verification_url}"
+        uri = URI.parse(verification_url)
+        answer = nil
+        Net::HTTP.start(uri.host) do |http_request|
+          response = http_request.get(uri.path)
+          #puts "code: #{response.code}"
+          #puts "message: #{response.message}"
+          #puts "body >>#{response.body}<<"
+          answer = response.body.strip.chomp
+        end
+        #puts "answer #{answer}"
+        return answer == '1' ? true : false
+      rescue Exception => ex
+        CaptchaService::Configurator.captcha_service_logger(:error, 
+          "CaptchaService::CapchatorProvider: error while verifying answer #{ex.to_s}",
+          {:raise_if_no_logger => false})
+        return false
       end
-      #puts "answer #{answer}"
-      return answer == '1' ? true : false
     end
   
   end

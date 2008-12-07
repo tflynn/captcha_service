@@ -3,7 +3,7 @@ README for captcha_service
 
 Created by: Tracy Flynn
 Date: 2008/12/07
-Version: 0.3
+Version: 0.4
 
 captcha_service description
 ===========================
@@ -192,4 +192,22 @@ captcha_service:
       :private_key: 'f7c63d37d6a9ebdb62aca64688b38901'
       :public_key: '2c3f421dd5b32c6fe217dca701bc8972'
 
+Changelog
+---------
+
+0.1 2008/12/1
+
+Initial version
+
+0.2 2008/12/7
+
+Reorganized. Added provider for captchator
+
+0.3 2008/12/7
+
+Added provider for mollom
+
+0.4 2008/12/7
+
+Added error handling for existing providers
 

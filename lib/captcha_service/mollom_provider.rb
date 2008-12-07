@@ -18,16 +18,30 @@ module CaptchaService
     end
     
     def image_tag
-      mollom_requester = get_mollom_requester
-      key = "helium_captcha_#{String.randomize(20)}"
-      url = mollom_requester.image_captcha(:session_id => key)["url"]
-      return [key,"<img src=\"#{url}\" />"]
+      begin
+        mollom_requester = get_mollom_requester
+        key = "helium_captcha_#{String.randomize(20)}"
+        url = mollom_requester.image_captcha(:session_id => key)["url"]
+        return [key,"<img src=\"#{url}\" />"]
+      rescue Exception => ex
+        CaptchaService::Configurator.captcha_service_logger(:error, 
+          "CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}",
+          {:raise_if_no_logger => false})
+        raise Exception.new("CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}")
+      end
     end
 
     def verify_answer(key,answer)
-      mollom_requester = get_mollom_requester
-      answer = mollom_requester.valid_captcha?(:session_id => key, :solution => answer)
-      return answer
+      begin
+        mollom_requester = get_mollom_requester
+        answer = mollom_requester.valid_captcha?(:session_id => key, :solution => answer)
+        return answer
+      rescue Exception => ex
+        CaptchaService::Configurator.captcha_service_logger(:error, 
+          "CaptchaService::MollomProvider: error while verifying answer #{ex.to_s}",
+          {:raise_if_no_logger => false})
+        return false
+      end
     end
   
   end
