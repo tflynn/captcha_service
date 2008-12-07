@@ -27,7 +27,8 @@ module CaptchaService
         CaptchaService::Configurator.captcha_service_logger(:error, 
           "CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}",
           {:raise_if_no_logger => false})
-        raise Exception.new("CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}")
+        #raise Exception.new("CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}")
+        return nil
       end
     end
 
