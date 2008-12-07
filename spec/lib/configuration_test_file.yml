@@ -1,0 +1,4 @@
+captcha_service:
+  :default_provider: :test_provider
+  :providers:
+    :test_provider:
