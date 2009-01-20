@@ -5,7 +5,7 @@ require 'rake/testtask'
 require 'find'
 
 name = 'captcha_service'
-version = '0.5'
+version = '0.6'
 
 gem_spec = Gem::Specification.new do |s|
   s.name = name

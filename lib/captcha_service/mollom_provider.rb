@@ -17,12 +17,12 @@ module CaptchaService
       return mollom_requester
     end
     
-    def image_tag
+    def image_src
       begin
         mollom_requester = get_mollom_requester
         key = "helium_captcha_#{String.randomize(20)}"
         url = mollom_requester.image_captcha(:session_id => key)["url"]
-        return [key,"<img src=\"#{url}\" />"]
+        return [key, url]
       rescue Exception => ex
         CaptchaService::Configurator.captcha_service_logger(:error, 
           "CaptchaService::MollomProvider: error while obtaining image tag #{ex.to_s}",

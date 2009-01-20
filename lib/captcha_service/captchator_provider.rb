@@ -7,9 +7,9 @@ module CaptchaService
   
   class CapchatorProvider
     
-    def image_tag
+    def image_src
       key = "helium_captcha_#{String.randomize(20)}"
-      return [key,"<img src=\"http://captchator.com/captcha/image/#{key}\" />"]
+      return [key, "http://captchator.com/captcha/image/#{key}"]
     end
 
     def verify_answer(key,answer)
