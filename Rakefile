@@ -13,8 +13,8 @@ gem_spec = Gem::Specification.new do |s|
   s.summary = %{Lightweight access to external captcha services}
   s.description = %{Lightweight access to external captcha services by Tracy Flynn}
   s.author = "Tracy Flynn"
-  #s.email = ""
-  #s.homepage = ""
+  s.email = "gems@olioinfo.net"
+  s.homepage = "http://olioninfo.net/projects"
 
   s.test_files = FileList['test/**/*']
 

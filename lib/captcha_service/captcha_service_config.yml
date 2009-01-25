@@ -1,5 +1,9 @@
 captcha_service:
   :default_provider: :mollom
+  :refresh_captcha:
+    :enable_refresh_captcha: true
+    :refresh_captcha_controller: 'minimal_application'
+    :refresh_captcha_action: 'refresh_captcha'
   :providers:
     :captchator:
     :mollom:

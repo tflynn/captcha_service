@@ -2,8 +2,8 @@ README for captcha_service
 ===========================
 
 Created by: Tracy Flynn
-Date: 2008/12/07
-Version: 0.4
+Date: 2009/01/25
+Version: 0.6
 
 captcha_service description
 ===========================
@@ -59,6 +59,10 @@ Create a YAML file 'captcha_service.yml' with the following format:
 
 ----------------------------------------------
 captcha_service:
+  :refresh_captcha:
+    :enable_refresh_captcha: false
+    :refresh_captcha_controller: 'minimal_application'
+    :refresh_captcha_action: 'refresh_captcha'
   :default_provider: :mollom
   :providers:
     :captchator:
@@ -159,6 +163,48 @@ Other Environments
 ------------------
 
 Currently, there is no support for 3rd party logging.
+
+Ajax support for refreshing captcha
+===================================
+
+To enable the support for refreshing a captcha via an Ajax call
+
+captcha_service:
+  :refresh_captcha:
+    :enable_refresh_captcha: true
+    :refresh_captcha_controller: 'minimal_application'
+    :refresh_captcha_action: 'refresh_captcha'
+    
+This clearly depends on a framework that follows Rails / Mack conventions
+
+In the routes,
+
+File: ./config/routes.rb
+
+map.with_options :controller => 'minimal_application' do |msg|
+  msg.refresh_captcha 'refresh_captcha', :action => 'refresh_captcha'
+end
+
+In the controller, a method similar to:
+
+def refresh_captcha
+  # Needs entry in routes
+  # Needs an rjs partial in the correct location
+  # Needs a partial to be called from the RJS in the correct location
+  options = {:label => params['label_contents']}
+  @captcha_div_contents = captcha_div_contents(options)
+end
+
+In the views:
+
+File: ./app/views/minimal_application/refresh_captcha.rjs
+
+page.replace_html("captcha_div", :partial => 'refresh_captcha_content', :object => @captcha_div_contents )
+
+File: ./app/views/minimal_application/_refresh_captcha_content.html.erb
+
+<%= @captcha_div_contents %>
+
 
 Captcha Service Providers
 =========================
