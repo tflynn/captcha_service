@@ -211,3 +211,15 @@ Added provider for mollom
 
 Added error handling for existing providers
 
+0.5 2008/12/8
+
+Updated demo apps
+
+0.6 2009/1/25
+
+Added view and controller helper methods for Rails and Mack 
+(thanks to Gerardo git://github.com/GrrrD/captcha_service.git)
+
+
+
+

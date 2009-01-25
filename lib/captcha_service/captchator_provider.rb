@@ -6,7 +6,12 @@ require File.join(File.dirname(__FILE__),'string_extensions')
 module CaptchaService
   
   class CapchatorProvider
-    
+
+    def image_tag
+      key = "helium_captcha_#{String.randomize(20)}"
+      return [key,"<img src=\"http://captchator.com/captcha/image/#{key}\" />"]
+    end
+
     def image_src
       key = "helium_captcha_#{String.randomize(20)}"
       return [key, "http://captchator.com/captcha/image/#{key}"]
