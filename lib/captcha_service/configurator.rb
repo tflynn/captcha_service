@@ -2,6 +2,7 @@ require 'yaml'
 
 require File.join(File.dirname(__FILE__),'string_extensions')
 require File.join(File.dirname(__FILE__),'captchator_provider')
+require File.join(File.dirname(__FILE__),'mollom_provider')
 
 module CaptchaService
   
