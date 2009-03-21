@@ -8,7 +8,7 @@ module CaptchaService
       input_options = {:id => 'captcha', :value => ''}.merge(options.delete(:input) || {})
       options = {:label => "Type in the character verification code from the image"}.merge(options)
       provider, provider_configuration = CaptchaService::Configurator.get_provider
-      input_options[:name], img_options[:src] = provider.image_src
+      captcha_key, img_options[:src] = provider.image_src
       captcha_div = %[
           <table >
             <tr>
@@ -19,7 +19,10 @@ module CaptchaService
                     <td><label id="captcha_label" for="captcha">#{options[:label]}</label></td>
                   </tr>
                   <tr>
-                    <td><input #{input_options.map{|key, value| %(#{key}="#{value}")}.join(' ')} /></td>
+                    <td>
+                      <input type="text" name="captcha"/>
+                      <input type="hidden" name="captcha_key", value="#{captcha_key}"/>
+                    </td>
                   </tr>
                   <tr>
                     <td>#{refresh_captcha_link}</td>
@@ -28,8 +31,8 @@ module CaptchaService
               </td>
             </tr>
           </table>
-          
         ]
+      
       return captcha_div
     end
 
@@ -77,15 +80,9 @@ module CaptchaService
     protected
     
     def captcha_valid?(parms)
-      key = ''
-      parms.each_key do |k| 
-        if k =~ /^helium_captcha_/
-          key = k
-          break
-        end
-      end
       provider = CaptchaService::Configurator.get_provider
-      provider.verify_answer(key,parms[key])
+      #puts "captcha_valid? #{parms['captcha_key']} #{parms['captcha']}"
+      return provider.verify_answer(parms['captcha_key'],parms['captcha'])
     end
     
   end
