@@ -81,7 +81,6 @@ module CaptchaService
     
     def captcha_valid?(parms)
       provider = CaptchaService::Configurator.get_provider
-      #puts "captcha_valid? #{parms['captcha_key']} #{parms['captcha']}"
       return provider.verify_answer(parms['captcha_key'],parms['captcha'])
     end
     
