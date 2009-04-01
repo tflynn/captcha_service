@@ -45,7 +45,7 @@ module CaptchaService
       action_name = refresh_captcha_options[:refresh_captcha_action]
       if CaptchaService::Configurator.is_Rails? or CaptchaService::Configurator.is_Mack?
         refresh_captcha_link_text = %[
-          <a href="#" onclick="var label_contents = $('captcha_label').innerHTML; new Ajax.Request('/#{controller_name}/#{action_name}',{asynchronous:true,evalScripts:true,parameters: 'label_contents=' + encodeURIComponent(label_contents)});return false;" 
+          <a href="#" onclick="var label_contents = $('captcha_label').innerHTML; new Ajax.Request( '' + document.location.protocol + '//' + document.location.host + '/#{controller_name}/#{action_name}',{asynchronous:true,evalScripts:true,parameters: 'label_contents=' + encodeURIComponent(label_contents)});return false;" 
           rel="nofollow">Get another image</a>
         ]
       else
