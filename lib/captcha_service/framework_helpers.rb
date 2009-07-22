@@ -9,6 +9,10 @@ module CaptchaService
       options = {:label => "Type in the character verification code from the image"}.merge(options)
       provider, provider_configuration = CaptchaService::Configurator.get_provider
       captcha_key, img_options[:src] = provider.image_src
+      # if options[:secure] 
+      #   img_options[:src] = img_options[:src].gsub(/http/,'https:')
+      #   RAILS_DEFAULT_LOGGER.debug("CaptchaService::Helpers::captcha_div_contents changed img_options[:src] to #{img_options[:src]}")
+      # end
       captcha_div = %[
           <table >
             <tr>
@@ -62,6 +66,7 @@ module CaptchaService
     
      
     def show_captcha(options = {})
+      # options = {:secure => request.protocol =~ /https/}.merge(options)
       div_interior = captcha_div_contents(options)
       captcha_div = %[<div id='captcha_div'>
           #{div_interior}

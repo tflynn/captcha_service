@@ -5,7 +5,7 @@ require 'rake/testtask'
 require 'find'
 
 name = 'captcha_service'
-version = '0.8.1'
+version = '0.8.3'
 
 gem_spec = Gem::Specification.new do |s|
   s.name = name
@@ -21,7 +21,7 @@ gem_spec = Gem::Specification.new do |s|
   s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*', 'lib/**/*.yml']
   s.require_paths << 'lib'
   
-  s.add_dependency("mollom", "0.1.4")
+  s.add_dependency("mollom-patched", "0.1.5.1")
   
   # This will loop through all files in your lib directory and autorequire them for you.
   # It will also ignore all Subversion files.
