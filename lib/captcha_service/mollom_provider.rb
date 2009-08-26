@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 
 require 'rubygems'
-gem 'mollom-patched','0.1.5.1'
+gem 'mollom','0.1.4.1'
 require 'mollom'
 
 require File.join(File.dirname(__FILE__),'string_extensions')
